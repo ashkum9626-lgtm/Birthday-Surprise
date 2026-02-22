@@ -3,25 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Magic - Jarvis 5.0</title>
+    <title>Birthday Magic</title>
     <style>
-        body { background: #8B0000; color: #FFD700; font-family: 'Arial', sans-serif; text-align: center; margin-top: 50px; }
+        body { background: #8B0000; color: #FFD700; font-family: 'Arial', sans-serif; text-align: center; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        #content { transition: all 0.5s ease; }
         .btn { padding: 15px 30px; font-size: 20px; background: #FFD700; color: #8B0000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .hidden { display: none; }
+        .surprise-text { font-size: 40px; animation: glow 1s infinite alternate; }
+        @keyframes glow { from { text-shadow: 0 0 10px #FFD700; } to { text-shadow: 0 0 30px #fff; } }
     </style>
 </head>
 <body>
-    <h1>Happy Birthday! 🎂</h1>
-    <p>A Special Surprise for You...</p>
-    <br>
-    <button class="btn" onclick="playMusic()">Click for Magic</button>
+    <div id="content">
+        <h1 id="title">Happy Birthday! 🎂</h1>
+        <p id="msg">A Special Surprise for You...</p>
+        <button id="mainBtn" class="btn" onclick="triggerMagic()">Wait for Surprise</button>
+    </div>
     <audio id="bdaySong" src="song.mp3" preload="auto"></audio>
 
     <script>
-        function playMusic() {
-            var audio = document.getElementById("bdaySong");
-            audio.play().catch(function(error) {
-                alert("Please tap again to trigger the magic!");
-            });
+        let step = 1;
+        function triggerMagic() {
+            let audio = document.getElementById("bdaySong");
+            let btn = document.getElementById("mainBtn");
+            let title = document.getElementById("title");
+            let msg = document.getElementById("msg");
+
+            if(step === 1) {
+                audio.play();
+                btn.innerText = "Click for the Big Surprise!";
+                msg.innerText = "Music is playing... Now the final touch!";
+                step = 2;
+            } else {
+                title.classList.add("surprise-text");
+                title.innerText = "YOU ARE AMAZING! ❤️";
+                msg.innerHTML = "May all your dreams come true!<br>💥 KUBOOM 💥";
+                btn.classList.add("hidden");
+            }
         }
     </script>
 </body>
