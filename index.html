@@ -5,40 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Magic</title>
     <style>
-        body { background: #8B0000; color: #FFD700; font-family: 'Arial', sans-serif; text-align: center; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        #content { transition: all 0.5s ease; }
-        .btn { padding: 15px 30px; font-size: 20px; background: #FFD700; color: #8B0000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .hidden { display: none; }
-        .surprise-text { font-size: 40px; animation: glow 1s infinite alternate; }
-        @keyframes glow { from { text-shadow: 0 0 10px #FFD700; } to { text-shadow: 0 0 30px #fff; } }
+        /* Soft Pastel Gradient - Lovely and light */
+        body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); color: #D4418E; font-family: 'Courier New', Courier, monospace; text-align: center; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; transition: background 1s ease; }
+        .pixel-card { background: rgba(255, 255, 255, 0.8); border: 4px solid #D4418E; padding: 30px; box-shadow: 8px 8px 0px #D4418E; border-radius: 10px; max-width: 85%; }
+        .btn { padding: 15px 25px; font-size: 18px; background: #D4418E; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 4px 4px 0px #8B0000; margin-top: 20px; transition: transform 0.2s; }
+        .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #8B0000; }
+        .pixel-art { font-size: 60px; margin-bottom: 15px; animation: bounce 1s infinite alternate; }
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
     </style>
 </head>
 <body>
-    <div id="content">
-        <h1 id="title">Happy Birthday! 🎂</h1>
-        <p id="msg">A Special Surprise for You...</p>
-        <button id="mainBtn" class="btn" onclick="triggerMagic()">Wait for Surprise</button>
+    <div class="pixel-card">
+        <div id="art" class="pixel-art">✨</div>
+        <h2 id="text">Click for Surprise</h2>
+        <button id="mainBtn" class="btn" onclick="nextStep()">Tap Here</button>
     </div>
     <audio id="bdaySong" src="song.mp3" preload="auto"></audio>
 
     <script>
         let step = 1;
-        function triggerMagic() {
+        function nextStep() {
             let audio = document.getElementById("bdaySong");
+            let art = document.getElementById("art");
+            let text = document.getElementById("text");
             let btn = document.getElementById("mainBtn");
-            let title = document.getElementById("title");
-            let msg = document.getElementById("msg");
 
             if(step === 1) {
-                audio.play();
-                btn.innerText = "Click for the Big Surprise!";
-                msg.innerText = "Music is playing... Now the final touch!";
+                audio.play(); 
+                art.innerText = "💃🏽";
+                text.innerText = "Itni jldi bhi kya he nanhi Pari he...";
+                btn.innerText = "Sabar Karo!";
+                document.body.style.background = "linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)";
                 step = 2;
-            } else {
-                title.classList.add("surprise-text");
-                title.innerText = "YOU ARE AMAZING! ❤️";
-                msg.innerHTML = "May all your dreams come true!<br>💥 KUBOOM 💥";
-                btn.classList.add("hidden");
+            } else if(step === 2) {
+                art.innerText = "💝";
+                text.innerText = "Happy Birthday Sweety!";
+                btn.style.display = "none";
+                document.body.style.background = "linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%)";
+                // Final Kuboom effect using background change
+                step = 3;
             }
         }
     </script>
