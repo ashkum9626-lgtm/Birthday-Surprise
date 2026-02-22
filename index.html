@@ -3,50 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Magic</title>
+    <title>Birthday Magic v2.0</title>
     <style>
         body { background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%); margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; font-family: 'Courier New', Courier, monospace; }
-        .container { width: 90%; max-width: 400px; text-align: center; position: relative; }
-        .screen { display: none; background: rgba(255, 255, 255, 0.9); border: 4px solid #D4418E; padding: 25px; box-shadow: 8px 8px 0px #D4418E; border-radius: 12px; transition: opacity 0.8s ease-in-out; opacity: 0; }
+        .container { width: 90%; max-width: 400px; text-align: center; }
+        
+        /* Fade Transition Logic */
+        .screen { 
+            display: none; 
+            background: rgba(255, 255, 255, 0.95); 
+            border: 5px solid #D4418E; 
+            padding: 30px; 
+            box-shadow: 10px 10px 0px #D4418E; 
+            border-radius: 15px; 
+            opacity: 0; 
+            transition: opacity 0.8s ease-in-out; 
+        }
         .active { display: block; opacity: 1; }
-        .pixel-img { width: 100%; border-radius: 8px; margin-bottom: 15px; }
-        .btn { padding: 15px 25px; font-size: 18px; background: #D4418E; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 4px 4px 0px #8B0000; margin-top: 15px; width: 100%; }
-        h2 { color: #D4418E; font-size: 20px; }
+        
+        .pixel-img { width: 100%; border-radius: 10px; margin-bottom: 20px; border: 2px solid #D4418E; }
+        .btn { padding: 18px; font-size: 20px; background: #D4418E; color: white; border: none; cursor: pointer; font-weight: bold; box-shadow: 5px 5px 0px #8B0000; width: 100%; border-radius: 5px; }
+        .btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0px #8B0000; }
+        h2 { color: #D4418E; font-size: 1.2rem; line-height: 1.5; }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="step1" class="screen active">
-            <img src="https://pin.it/54eRymsKN" alt="Gift Box" class="pixel-img" onerror="this.src='https://raw.githubusercontent.com/626-lgtm/Birthday-Surprise/main/gift.gif'">
+            <img src="https://pin.it/54eRymsKN" class="pixel-img" alt="Surprise">
             <h2>Click for Surprise 🎁</h2>
-            <button class="btn" onclick="showNext(1, 2)">Tap Here</button>
+            <button class="btn" onclick="triggerMagic(1, 2)">Tap Here</button>
         </div>
 
         <div id="step2" class="screen">
-            <img src="https://pin.it/6DVsXJNOW" alt="Dancing Pari" class="pixel-img" onerror="this.src='https://raw.githubusercontent.com/626-lgtm/Birthday-Surprise/main/dance.gif'">
+            <img src="https://pin.it/6DVsXJNOW" class="pixel-img" alt="Pari">
             <h2>Itni jldi bhi kya he Nanhi Pari he... 💃🏽</h2>
-            <button class="btn" onclick="showNext(2, 3)">Sabar Karo!</button>
+            <button class="btn" onclick="triggerMagic(2, 3)">Sabar Karo!</button>
         </div>
 
         <div id="step3" class="screen">
-            <img src="https://share.google/HoX1SncR4cPeBEpl3" alt="Final Surprise" class="pixel-img" onerror="this.src='https://raw.githubusercontent.com/626-lgtm/Birthday-Surprise/main/final.jpg'">
+            <img src="https://share.google/HoX1SncR4cPeBEpl3" class="pixel-img" alt="Birthday">
             <h2>💖 Happy Birthday Sweety 💖</h2>
         </div>
     </div>
 
     <script>
-        function showNext(current, next) {
-            let currentScreen = document.getElementById('step' + current);
-            let nextScreen = document.getElementById('step' + next);
+        function triggerMagic(curr, next) {
+            let currentDiv = document.getElementById('step' + curr);
+            let nextDiv = document.getElementById('step' + next);
             
-            // Fade Out
-            currentScreen.style.opacity = '0';
+            // FADE OUT
+            currentDiv.style.opacity = '0';
+            
             setTimeout(() => {
-                currentScreen.classList.remove('active');
-                // Fade In
-                nextScreen.classList.add('active');
+                currentDiv.classList.remove('active');
+                // FADE IN
+                nextDiv.classList.add('active');
                 setTimeout(() => {
-                    nextScreen.style.opacity = '1';
+                    nextDiv.style.opacity = '1';
                 }, 50);
             }, 800);
         }
